@@ -1,0 +1,14 @@
+.project
+.settings
+.classpath
+customer-controlled-access-spec/spec-validation-output-release.txt
+customer-controlled-access-spec/spec-validation-output.txt
+customer-controlled-access-spec/dev-spec-validation-output-release.txt
+customer-controlled-access-spec/ops-spec-validation-output-release.txt
+customer-controlled-access-spec/spec-validation-output-release.txt
+target/
+customer-controlled-access-canary/abandoned
+customer-controlled-access-api/abandoned
+customer-controlled-access-canary/abandoned
+.idea
+*.iml
