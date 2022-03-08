@@ -2,8 +2,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.util.*;
-import static java.lang.System.*;
+import java.util.Scanner;
+import static java.lang.System.out;
 
 /**
  * InputTest.java

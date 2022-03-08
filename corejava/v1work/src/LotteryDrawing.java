@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
-import static java.lang.Math.*;
+import static java.lang.Math.random;
 
 public class LotteryDrawing {
     public static void main(String[] args) {

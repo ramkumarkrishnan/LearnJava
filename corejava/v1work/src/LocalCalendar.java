@@ -46,7 +46,6 @@ public class LocalCalendar {
         if (date.getDayOfWeek().getValue() != 1)
             System.out.println();
 
-        Boolean bool = true;
-        return bool;
+        return true;
     }
 }

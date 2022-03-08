@@ -19,6 +19,6 @@ public class LocalTimeCheckObj {
         }
 
         LocalCalendar cal = new LocalCalendar(date);
-        cal.getCalendar();
+        cal.printCalendar();
     }
 }
