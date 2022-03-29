@@ -41,8 +41,7 @@ public class LocalTimeCheck {
             System.out.print("    ");
 
         // print the calendar for the rest of the month
-        while (date.getMonthValue() == month)
-        {
+        while (date.getMonthValue() == month) {
             System.out.printf("%3d", date.getDayOfMonth());
 
             // add * to indicate today

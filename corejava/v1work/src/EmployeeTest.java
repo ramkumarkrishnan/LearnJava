@@ -1,6 +1,7 @@
 /**
  * This program tests the Employee class and has different access levels
  */
+
 public class EmployeeTest
 {
     public static void main(String[] args)

@@ -8,8 +8,9 @@ import java.time.LocalDate;
 /**
  * Employee class used by EmployeeTest
  * Test various access levels of methods and instance fields
+ * Demo Interfaces - Comparable and Cloneable
  */
-public class PackageEmployee {
+public class PackageEmployee implements Comparable<PackageEmployee>, Cloneable {
     private String name;
     private double salary;
     private LocalDate hireDay;
@@ -69,8 +70,20 @@ public class PackageEmployee {
         return id;
     }
 
-    public void raiseSalary(double byPercent) {
+    public final void raiseSalary(double byPercent) {
         this.salary += this.salary * (byPercent / 100);
+    }
+
+    public PackageEmployee getPackageEmployee(PackageEmployee[] emp, String nm) {
+        boolean found = Boolean.FALSE;
+        PackageEmployee ret = new PackageEmployee("",0,9999, 9, 9, 9999, 9, 9);
+        for (PackageEmployee e : emp) {
+            if (e.getName().compareTo(nm) == 0) {
+                ret = e;
+                break;
+            }
+        }
+        return ret;
     }
 
     /*
@@ -87,5 +100,36 @@ public class PackageEmployee {
 
     public void addEvaluation(String evaluation)  {
         evaluations.append(LocalDate.now() + ": " + evaluation);
+    }
+
+    @Override public String toString()  {
+        return getClass().getName()
+                + ":name=" + name
+                + ",salary=" + salary
+                + ",hireDay=" + hireDay
+                + ",birthDay=" + birthDay
+                + ",eval=" + evaluations;
+    }
+
+    /**
+     * Compares employees by salary
+     * @param other another Employee object
+     * @return a negative value if this employee has a lower salary than
+     * otherObject, 0 if the salaries are the same, a positive value otherwise
+     */
+    @Override
+    public int compareTo(PackageEmployee other) {
+        return Double.compare(salary, other.salary);
+    }
+
+    /**
+     * Demo Cloneable interface
+     * protected - the member can be accessed by any class in the same package
+     * and by subclasses even if they are in another packages.
+     * override clone method by simply calling Object class clone method
+     */
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }
