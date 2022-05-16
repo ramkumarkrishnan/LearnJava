@@ -23,6 +23,7 @@ public class SyncDefcopy {
                     }
                 }
                 catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                 }
             };
             var t = new Thread(r);

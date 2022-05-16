@@ -1,10 +1,8 @@
-/**
- * Demo Threads using concurrent Bank transfers
- */
 package com.ramkrish.banco;
+
 import java.util.*;
 
-public class BancoDeJava {
+public class BancoUnSynco  {
     private final double[] accounts;
 
     /**
@@ -12,8 +10,8 @@ public class BancoDeJava {
      * @param n the number of accounts
      * @param initialBalance the initial balance for each account
      */
-    public BancoDeJava(int numAccounts, double initialBalance)  {
-        accounts = new double[numAccounts];
+    public BancoUnSynco(int n, double initialBalance)  {
+        accounts = new double[n];
         Arrays.fill(accounts, initialBalance);
     }
 
@@ -31,22 +29,18 @@ public class BancoDeJava {
             // balance between the test and the transfer action. We do so
             // by protecting both the test and the transfer action with a lock.
             return;
-
-        // the output of the threads is interleaved, showing that they run concurrently.
-        System.out.print(Thread.currentThread() + ":" + Thread.currentThread().getState());
-        System.out.printf(" %d -> %d: %10.2f Balances:", from, to, amount);
+        System.out.print(Thread.currentThread().getName() + Thread.currentThread().getState());
+        System.out.printf(" %d -> %d: %10.2f Bal:", from, to, amount);
         accounts[from] -= amount;
         accounts[to] += amount;
-        double sum = 0;
-        for (int i = 0; i < accounts.length; i++) {
+        for (int i = 0; i < accounts.length; i++)  {
             System.out.printf(" %d:%10.2f ", i, accounts[i]);
-            sum += accounts[i];
         }
         System.out.printf(" Total: %10.2f%n", getTotalBalance());
     }
 
     /**
-     * Gets total balance in account balances.
+     * Gets the sum of all account balances.
      * @return the total balance
      */
     public double getTotalBalance()  {
@@ -59,7 +53,8 @@ public class BancoDeJava {
      * Gets the number of accounts in the bank.
      * @return the number of accounts
      */
-    public int size() {
+    public int size()
+    {
         return accounts.length;
     }
 }

@@ -33,8 +33,10 @@ public class BancoDeSynco {
         accounts = new double[numAccounts];
         Arrays.fill(accounts, initialBalance);
 
+        // lock to protect critical area
         bankLock = new ReentrantLock();
 
+        // Condition object to signal/track funds availability to relinquish lock
         sufficientFunds = bankLock.newCondition();
     }
 
@@ -89,14 +91,14 @@ public class BancoDeSynco {
                 // another thread has called the signalAll method on the same condition.
                 sufficientFunds.await();
 
-            System.out.print(Thread.currentThread() + ":" + Thread.currentThread().getState());
-            System.out.printf(" %d -> %d: %10.2f: ", from, to, amount);
+            System.out.print(Thread.currentThread().getName() + ":" + Thread.currentThread().getState());
+            System.out.printf(" %d -> %d: %10.2f Bal:", from, to, amount);
             accounts[from] -= amount;
             accounts[to] += amount;
-            System.out.printf(" Bal: %d:%10.2f, %d:%10.2f ",
-                    from, accounts[from], to, accounts[to]);
-            System.out.printf(" Total(%d): %10.2f%n",
-                    size(), getTotalBalance());
+            for (int i = 0; i < accounts.length; i++) {
+                System.out.printf(" %d:%10.2f ", i, accounts[i]);
+            }
+            System.out.printf(" Total: %10.2f%n", getTotalBalance());
 
             // This call reactivates all threads waiting for the condition. When
             // the threads are removed from the wait set, they are again runnable
@@ -127,8 +129,7 @@ public class BancoDeSynco {
         bankLock.lock();
         try  {
             double sum = 0;
-            for (double a : accounts)
-                sum += a;
+            for (double a : accounts) sum += a;
             return sum;
         }
         finally {
@@ -140,7 +141,8 @@ public class BancoDeSynco {
      * Gets the number of accounts in the bank.
      * @return the number of accounts
      */
-    public int size()  {
+    public int size()
+    {
         return accounts.length;
     }
 }
